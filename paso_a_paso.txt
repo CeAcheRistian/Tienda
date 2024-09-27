@@ -1,0 +1,19 @@
+En este txt se enucentra paso a paso como fue desarrollando el proyecto de la tienda
+
+Se crea la carpeta app que contedrá a su vez la acrpeta static y templates.
+Se crea el entorno, se activa, se instala flask.
+
+Se crea el archivo __init__.py dentro de app, para que la carpeta app, funcione como un módulo o paquete, lo que permite importar todo lo del paquete de forma directa.
+Es un __init__ donde se importa flask
+se crea una instancia de flask de nombre app y se crea una función (inicializar_app()) que retorne dicha app.
+
+HINT: con ALt + Shift + F. VSC pregunta si se quiere instalar autopep8, si ya está instalado, le da el formato de la convención Pep8
+
+En la ruta raíz, en este caso en Tienda, se crea el archivo manage.py. Aquí se puede desplegar de otra manera el servidor y poder
+ver la aplicación en desarrollo 
+>>>>>>>>>>>>>>>>>
+La tecnología de flask_script es obsoleta, en cambio existe flask_cli basado en click. Así pues, se instala
+>> pip install flask-cli
+
+>>>>>>>>>>>>>>>>
+En init, se crea la primer ruta para que al correr el server no de error 404
