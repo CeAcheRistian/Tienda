@@ -66,3 +66,17 @@ Para tener una barra de navegación. Se crea nav.html, en la web de Bootstrap sa
 se busca Navbar y se selecciona una, se copia se pega el contenido en nav. Se borran algunas etiquetas que no se usan, las li de nav-item,
 para no tener tantas opciones en la barra de navegación
 En body.html se agrega una etiqueta de jinja que es include 'archivo.html'. Como su nombre lo dice, se incluye el contenido de ese archivo
+Esta barra de navegación existirá en todo el sitio, excepto en el login.
+Cambiamos el nombre de la barra a Tienda, en la primer etiqueta li, cambiamos el nombre a Index y en el argumento de la etiqueta li, le quitamos
+la propiedad de active, y la etiqueta span y comentamos las otras etiquetas.
+En item Index, se tiene un atributo href, la cual hace referencia al mismo sitio mediante un numeral (#), en nuestra web, si se da click al boton index, no ocurre nada
+
+En index.html creamos un div con el nombre de row, es decir fila. Para poder contener más elemntos Dentro creamos otra etiqueta div con un texto que sirve
+para que, independientemente del tipo de pantalla, el contenido se muestre. Bootstrap usa un sistema de división de la pantalla en 12 espacios.
+Dentro de los cuales se puede asignar bloques de diferente tamaño, mientras no rebasen los 12. Bootstrap redimensionará la página dependiendo
+del dispositivo que la visite, esta característica se denomina RESPONSIVE y es una buena práctica
+Colocamos el mensaje del h1 dentro del div que se acaba de crear.
+Ahora, si hacemos pequeña la ventana del navegador, el contenido se moverá dependiendo del tamaño disponible!!!
+
+Durante todo este proceso se usaron los CDN de Bootstrap, pues la otra forma de usar Bootstrap es teniendo las librería dentro de static.
+Creamos 4 carpetas img,css,js,lib de librerias
