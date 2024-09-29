@@ -25,3 +25,44 @@ Y todo esto para que dentro de las configuraciones de app.run, el depurador est�
 
 Para modificar el puerto o el host de nuestro server, se especifica cada uno de estos argumentos dentro del método app.run().
 Por defecto los valores son: host = localhost , port = 5000. Ejemplo de otra config: app.run(host="10.100.100.10", port=9566)
+
+Ahora se manejará el error 404 al ingresar a una ruta que no exista en nuestra página.
+En init se crea una funcion con el nombre del error, le pasamos un argumento que será tratado como el error y retorna un render_template
+En la carpeta templates se crea otra carpeta de nombre errores, en la cual habrá plantillas para los errores.
+Dentro se crea el archivo 404.html y se escribe una maqueta básica de un html. COn los mensajes del error
+En init, en la return de la función pagina_no_encontrada, se especifica la ruta carpeta/archivo.html y como segundo parámetro del return, escribimos 404.
+
+Se tiene que registrar un manejador de errores. dentro de inicializar_app se especifica el manejador de errores.
+Como primer parámetro el error 404, y como segundo la función que creamos anteriormente.
+
+Dentro de templates se crea un archivo base.html, se le da la maqueta básica y se crea un bloque de titulo  jinja en la etiqueta del titulo y uno de body
+Esta plantilla base, nos servirá para el formulario de inicio de sesión como para toda la intranet, es decir, todos los procedimientos internos de la app.
+Se recomienda hacer bloques de importación de archivos css y js. Se  pueden crear bloques personalisados para poder importar estos archivos en las plantillas
+que los usen. Entonces se importan en el template correspondiente. Solo se definen los bloques.
+
+Se crea el archivo body.html dentro de templates, hereda de base y se crea un bloque body de jinja. Dentro se crea otro bloque containter
+
+Creamos el archivo index.html. Esta plantilla renderizará la vista index desde init.py
+Hereda de body, se crea un bloque de titulo y se le da el titulo index. También un bloque que contiene un mensaje provisional. Este mensaje se encuentra
+en un bloque contenedor, el cual adaptará su contenido al bloque que corresponde a body, en body al bloque contenedor, lo contiene a su vez un bloque body
+y como body.html hereda de base, el mensaje que viene desde index.html se adapta al bloque título de base.html
+
+Con todo esto configurado, en init.py la ruta raíz ya no retorna solo un string, sino un render_template
+Para estilizar los archivos CSS se usará el framework Bootstrap.
+Se integra Bootstrap a través de CDN. Content Delivery Network (red de distribución de contenidos) o a través de la descarga e importación de los archivos
+que se quieran utilizar, los cuales van dentro de /static.
+Con CDN: En un navegador web se busca Bootstrap y se busca la versión 4.6 (porqué esa?, no sé). 
+Se copia el stylesheet que nos presenta la web y se pega en base.html después del título. Así se importa Bootstrap, pero se necesitan más importaciones ...
+Se necesitan algunos archivos JS para poder crear efectos y funcionalidades. Se usa jquery, librería de js que permite interactuar con el DOM (Document Object Model)
+de una forma más fácil. En la web, en el apartado de Separate vienen 3 scripts, los cuales se pegarán antes del bloque customJS de jinja
+Con esto se cambia los estilos de Bootstrap, gracias a las importaciones que hicimos.
+
+En body.html se crea una capa entre el bloque de body y el bloque container. Escribimos div.container y enter para que se cree la etiqueta automaticamente.
+Movemos el bloque container adentro del div que creamos. 
+Para mover el texto del mensaje Hola mundo, en los argumentos del div, se especifica py-5, esto significa que se quiere un padding verticar de X unidades
+El padding es un area de relleno en los lados que se le diga
+
+Para tener una barra de navegación. Se crea nav.html, en la web de Bootstrap sacamos una barra de navegación, dentro de su barra de navegación, en Components
+se busca Navbar y se selecciona una, se copia se pega el contenido en nav. Se borran algunas etiquetas que no se usan, las li de nav-item,
+para no tener tantas opciones en la barra de navegación
+En body.html se agrega una etiqueta de jinja que es include 'archivo.html'. Como su nombre lo dice, se incluye el contenido de ese archivo
