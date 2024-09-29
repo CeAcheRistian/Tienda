@@ -1,11 +1,12 @@
 class Config:
     pass
 
+
 class DevelopmentConfig(Config):
-    DEBUG=True
+    DEBUG = True
+
 
 config = {
     'development': DevelopmentConfig,
     'default': DevelopmentConfig
 }
-

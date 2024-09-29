@@ -16,3 +16,12 @@ En init, se crea la primer ruta para que al correr el server no de error 404
 
 Se crea el archivo config.py, en el cual se albergará la configuración para el proyecto.
 Se crean las clases Config (vacia), DevelopmentConfig que hereda de config, un diccionario con llaves que son instancias de la clase
+Para hacer esto funcionar, en el archivo init, en el método que retorna la aplicación, se especifica el parámetro config.
+Se especifica que app tendrá una configuración que viene del objeto config
+En manage se importa el modulo y el objeto config
+se crea una variable que su valor sea el valor de la llave development
+variable que será pasada como parámetro de la función inicializar_app
+Y todo esto para que dentro de las configuraciones de app.run, el depurador esté activo. Las clases creadas llevarán configuraciones más tarde
+
+Para modificar el puerto o el host de nuestro server, se especifica cada uno de estos argumentos dentro del método app.run().
+Por defecto los valores son: host = localhost , port = 5000. Ejemplo de otra config: app.run(host="10.100.100.10", port=9566)

@@ -1,7 +1,8 @@
-import click
 from app import inicializar_app
+from config import config
 
-app = inicializar_app()
+configuracion = config['development']
+app = inicializar_app(configuracion)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run()
