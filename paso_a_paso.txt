@@ -11,9 +11,8 @@ HINT: con ALt + Shift + F. VSC pregunta si se quiere instalar autopep8, si ya es
 
 En la ruta raíz, en este caso en Tienda, se crea el archivo manage.py. Aquí se puede desplegar de otra manera el servidor y poder
 ver la aplicación en desarrollo 
->>>>>>>>>>>>>>>>>
-La tecnología de flask_script es obsoleta, en cambio existe flask_cli basado en click. Así pues, se instala
->> pip install flask-cli
 
->>>>>>>>>>>>>>>>
 En init, se crea la primer ruta para que al correr el server no de error 404
+
+Se crea el archivo config.py, en el cual se albergará la configuración para el proyecto.
+Se crean las clases Config (vacia), DevelopmentConfig que hereda de config, un diccionario con llaves que son instancias de la clase
