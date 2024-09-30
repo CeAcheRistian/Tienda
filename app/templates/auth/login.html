@@ -1,0 +1,36 @@
+{% extends './base.html' %}
+
+{% block title %}
+Inicio de sesión
+{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+{% endblock %}
+
+{% block body %}
+
+<form class="form-signin" action="/login" method="post">
+    <img class="mb-4" src="{{ url_for('static', filename='img/flask.svg')}}" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Inicio de Sesi&oacute;n</h1>
+
+    <div class="form-floating">
+        <input type="text" name="usuario" class="form-control" id="floatingInput" placeholder="Usuario">
+        <div style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;" data-lastpass-icon-root=""></div>
+        <label for="floatingInput">User</label>
+    </div>
+    <br/>
+    <div class="form-floating">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <div style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;" data-lastpass-icon-root=""></div><label for="floatingPassword">Password</label>
+    </div>
+
+    <button class="btn btn-primary w-100 py-2" type="submit">Iniciar sesi&oacute;n</button>
+    <p class="mt-5 mb-3 text-body-secondary">© 2024</p>
+</form>
+
+{% block customJS %}
+<script src="{{ url_for('static', filename='js/login.js')}}"></script>
+{% endblock %}
+
+{% endblock %}

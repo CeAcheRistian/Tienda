@@ -26,6 +26,9 @@ Y todo esto para que dentro de las configuraciones de app.run, el depurador est�
 Para modificar el puerto o el host de nuestro server, se especifica cada uno de estos argumentos dentro del método app.run().
 Por defecto los valores son: host = localhost , port = 5000. Ejemplo de otra config: app.run(host="10.100.100.10", port=9566)
 
+
+    Manejo de error 404:
+
 Ahora se manejará el error 404 al ingresar a una ruta que no exista en nuestra página.
 En init se crea una funcion con el nombre del error, le pasamos un argumento que será tratado como el error y retorna un render_template
 En la carpeta templates se crea otra carpeta de nombre errores, en la cual habrá plantillas para los errores.
@@ -34,6 +37,7 @@ En init, en la return de la función pagina_no_encontrada, se especifica la ruta
 
 Se tiene que registrar un manejador de errores. dentro de inicializar_app se especifica el manejador de errores.
 Como primer parámetro el error 404, y como segundo la función que creamos anteriormente.
+
 
 Dentro de templates se crea un archivo base.html, se le da la maqueta básica y se crea un bloque de titulo  jinja en la etiqueta del titulo y uno de body
 Esta plantilla base, nos servirá para el formulario de inicio de sesión como para toda la intranet, es decir, todos los procedimientos internos de la app.
@@ -46,6 +50,9 @@ Creamos el archivo index.html. Esta plantilla renderizará la vista index desde 
 Hereda de body, se crea un bloque de titulo y se le da el titulo index. También un bloque que contiene un mensaje provisional. Este mensaje se encuentra
 en un bloque contenedor, el cual adaptará su contenido al bloque que corresponde a body, en body al bloque contenedor, lo contiene a su vez un bloque body
 y como body.html hereda de base, el mensaje que viene desde index.html se adapta al bloque título de base.html
+
+
+    Integrando Bootstrap con CDN para la barra de navegación:
 
 Con todo esto configurado, en init.py la ruta raíz ya no retorna solo un string, sino un render_template
 Para estilizar los archivos CSS se usará el framework Bootstrap.
@@ -62,7 +69,7 @@ Movemos el bloque container adentro del div que creamos.
 Para mover el texto del mensaje Hola mundo, en los argumentos del div, se especifica py-5, esto significa que se quiere un padding verticar de X unidades
 El padding es un area de relleno en los lados que se le diga
 
-Para tener una barra de navegación. Se crea nav.html, en la web de Bootstrap sacamos una barra de navegación, dentro de su barra de navegación, en Components
+Se crea nav.html, en la web de Bootstrap sacamos una barra de navegación, dentro de su barra de navegación, en Components
 se busca Navbar y se selecciona una, se copia se pega el contenido en nav. Se borran algunas etiquetas que no se usan, las li de nav-item,
 para no tener tantas opciones en la barra de navegación
 En body.html se agrega una etiqueta de jinja que es include 'archivo.html'. Como su nombre lo dice, se incluye el contenido de ese archivo
@@ -78,5 +85,75 @@ del dispositivo que la visite, esta característica se denomina RESPONSIVE y es 
 Colocamos el mensaje del h1 dentro del div que se acaba de crear.
 Ahora, si hacemos pequeña la ventana del navegador, el contenido se moverá dependiendo del tamaño disponible!!!
 
+
+    Bootstrap con la descarga e integración de la librería:
+
 Durante todo este proceso se usaron los CDN de Bootstrap, pues la otra forma de usar Bootstrap es teniendo las librería dentro de static.
-Creamos 4 carpetas img,css,js,lib de librerias
+Creamos 4 carpetas img,css,js,lib de librerias. Importamos los archivos de Bootstrap y la imagen del curso.
+En una etiqueta link, en la referencia se usa la funcion url_for y se especifica donde se encuentra el archivo a importar, se empieza con el css de Bootstrap
+Posteriormente, donde se colocaban los script de popper, jquery y Bootstrap, se hace casi lo mismo, solo que en el href se especifica la ruta con una facilidad de jinja
+
+Para hacer aparecer la pequeña imagen (svg) que se previamente colocamos en la carpeta img.
+Importamos la imagen debajo de la etiqueta del titulo, colocamos una etiqueta link, pero en el atributo rel, no colocamos stylesheet, sino shortcut importaciones
+y en href lo mismo, apuntamos a la posición de la imagen.
+
+
+    Para el formulario o login:
+
+En init creamos la ruta login, con su respectiva plantilla (login.html) en /templates/auth (de autenticacion)
+Para no tener que crear un formulario desde 0, sacamos uno de la web de Bootstrap (https://getbootstrap.com/docs/5.3/examples/)
+En login.html, hereda de base, y contiene un bloque de título y uno de cuerpo
+Con f12 checamos el código del login de ejemplo, copiamos todo el contenido de la etiqueta main y se coloca en el bloque body
+Se agrega el atributo class a la etiqueta form y se especifica que es un form-singin.
+Se debe agregar un archivo css para que el estilo sea identico al ejemplo. Archivo que se encuentra en el código de la web.
+El contenido lo meteremos a un archivo static/css/login.css.
+En una buena práctica el nombrar los archivos css de la misma manera que la plantilla a la cual afectan
+Para incluir el estilo que acabamos de obtener, se había creado anteriormente un bloque en base.html para los CSS customizados,
+No se va a incluir el código en base, ya que afectaría a todas las rutas, entonces como login hereda de base, creamos el mismo bloque,
+En una etiqueta link se especifica la ruta del archivo css. Jinja hará el resto
+
+Nota: Si algo no está bien escrito, como puede ser el nombre de un atributo de una etiqueta, si corre, pero puede que la vista no funcione como debería
+
+Para modificar el logo del formulario: en login.html, en la etiqueta img, modificamos el src (source).
+Para centrar el logo, se hará con JS. Se crea un bloque jinja para JS en login y con una etiqueta script se señala el archivo.
+
+
+    Usando JavaScript para centrar texto:
+
+Se crea el archivo js. En login.js se usa la clase text-center para centrar todo el texto del cuerpo de la página
+Se crea una constante que albergará el cuerpo del html, a través de la función querySelector, se para como parámetro el nombre de la etiqueta a seleccionar.
+La constante bosy llama al método classList, el cual solo es de lectura, pero el método add, el cual estamos usando, agrega clases a las etiquetas html
+y en este caso agregamos text-center.
+Con esta dos lineas de cogigo lo que se está haciendo es algo como: <body class='text-center'>
+El documento JS necesita ser cargado ya cuando el resto de la página ya haya cargado, puesto que no tiene sentido centrar un texto que todavía no existe,
+así pues, metemos las 2 lineas en una función. Esta función es equivalente al document.ready de jquery. Cuando el documento esté listo, se realizan una serie
+de acciones
+
+
+    Edición del login:
+
+Cambiamos los textos que se presetan en el login. Para los carácteres especiales como los acentos, se recomienda usar (&oacute;) para la ó
+otro ejemplo: &nacute; para la n. 
+Cambiamos los campos de email por los de usuario, type, name, placeholder y el contenido de la etiqueta. Para password se deja casi todo igual, 
+solo se agrega el campo name. Se eliminó un mensaje de bienvenida sin uso para nuestros intereses.
+
+
+    Métodos HTTP:
+
+Dentro del formulario (etiqueta form) se pueden aplicar dos atributos, aparte a las clases. Uno de ellos es action que indica a donde se manda el formulario
+y method que indica la forma de envío, es aquí donde se especifica qué metodo HTTP se va a usar, get,post,put o delete, son algunos de  los verbos
+GET es el método por defecto por los cuales se envían y procesan las peticiones a través de la web. Este método es el usado 
+y en action se manda a la ruta /login
+En el metodo login dentro de init, imprimimos request.method para ver el tipo de metodo, en la consola vemos: GET. 
+En la ruta login se están enviando dos datos, name=usuario y name=password, pero no los estamos recibiendo. Para ver que es lo que manda el usuario se imprime
+request.form['usuario'] y en otra password. Da un error, porque el método usado sigue siendo get y no post, 
+ya que post puede recibir los datos  de un formulario y procesarlos. Por lo tanto, se condicionan las impresiones solo cuando el request.method sea igual a POST
+Nos regresamos a login.html y cambiamos el método del form a POST. Si en el formulario mandamos datos nos dará error 405 method not allowed.
+Esto ocurre ya que Flask nos permite configurar a cada ruta el tipo de método sobre el cual se realizará la petición. Para solucionarlo, en init, en el decorador
+de login, se especifica como segundo parámetro, los métodos permitidos, por defecto solo es get. Si volvemos a mandar algo por usuario y password dará un TypeError
+Esto ocurre porque falta el return del render_template. En consola podemos ver lo que mandó el usuario en los campos, algo importante a exponer, es que lo que mandó
+el usuario por user y password se queda guardo en el server y no se filtra en la url, porque anteriormente, las respuestas dadas por el usuario se mostraban en la url
+esto implica una falta de seguridad.
+Como una prueba de un usuario con permisos de administrador, se crea la condicional donde el usuario debe ser admin y password es 123456, entonces redireccionamos
+al usuario a la ruta index, con los metodos redirect y url_for. De esta manera se simula un inicio de sesión, ya recibiendo los datos que pasa el usuario
+
