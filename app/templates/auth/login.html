@@ -11,17 +11,18 @@ Inicio de sesión
 {% block body %}
 
 <form class="form-signin" action="/login" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <img class="mb-4" src="{{ url_for('static', filename='img/flask.svg')}}" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Inicio de Sesi&oacute;n</h1>
 
     <div class="form-floating">
-        <input type="text" name="usuario" class="form-control" id="floatingInput" placeholder="Usuario">
+        <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Usuario" minlength="5" maxlength="20" required autofocus>
         <div style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;" data-lastpass-icon-root=""></div>
         <label for="floatingInput">User</label>
     </div>
     <br/>
     <div class="form-floating">
-        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" minlength="6" maxlength="20" required>
         <div style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;" data-lastpass-icon-root=""></div><label for="floatingPassword">Password</label>
     </div>
 

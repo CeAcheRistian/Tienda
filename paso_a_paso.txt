@@ -1,26 +1,25 @@
-En este txt se enucentra paso a paso como fue desarrollando el proyecto de la tienda
+En este txt se encuentra paso a paso como fue desarrollando el proyecto de la tienda
 
-Se crea la carpeta app que contedrá a su vez la acrpeta static y templates.
-Se crea el entorno, se activa, se instala flask.
+Se crea la carpeta app que contedrá a su vez la carpeta static y templates.Se crea el entorno virtual, se activa, actualiza; se instala flask.
 
-Se crea el archivo __init__.py dentro de app, para que la carpeta app, funcione como un módulo o paquete, lo que permite importar todo lo del paquete de forma directa.
-Es un __init__ donde se importa flask
-se crea una instancia de flask de nombre app y se crea una función (inicializar_app()) que retorne dicha app.
+Se crea el archivo __init__.py dentro de app, para que la carpeta app, funcione como un paquete, lo que permite importar todo lo del paquete de forma directa.
+Es en init donde se importa flask. Se crea una instancia de flask de nombre app y se crea una función (inicializar_app()) que retorne dicha app.
 
 HINT: con ALt + Shift + F. VSC pregunta si se quiere instalar autopep8, si ya está instalado, le da el formato de la convención Pep8
 
 En la ruta raíz, en este caso en Tienda, se crea el archivo manage.py. Aquí se puede desplegar de otra manera el servidor y poder
-ver la aplicación en desarrollo 
+ver la aplicación en desarrollo. Es este archivo el que corremos en consola 
 
-En init, se crea la primer ruta para que al correr el server no de error 404
+En init, se crea la primer ruta para que al correr el server,  nos da error 404, ya que no hemos creado nada todavía
 
-Se crea el archivo config.py, en el cual se albergará la configuración para el proyecto.
-Se crean las clases Config (vacia), DevelopmentConfig que hereda de config, un diccionario con llaves que son instancias de la clase
-Para hacer esto funcionar, en el archivo init, en el método que retorna la aplicación, se especifica el parámetro config.
-Se especifica que app tendrá una configuración que viene del objeto config
-En manage se importa el modulo y el objeto config
-se crea una variable que su valor sea el valor de la llave development
-variable que será pasada como parámetro de la función inicializar_app
+
+    Creando los archivos de configuraciones:
+
+Se crea el archivo config.py, en el cual se albergará la configuración para el proyecto. Se crean las clases Config (vacia),
+DevelopmentConfig que hereda de config, un diccionario con llaves que son instancias de la clase. Para hacer esto funcionar, en el archivo init,
+en el método que retorna la aplicación, se especifica el parámetro config. Se especifica que app tendrá una configuración que viene del objeto config
+En manage se importa el módulo que acabamos de crear y el objeto config. Se crea una variable que su valor sea el valor de la llave development,
+variable que será pasada como parámetro de la función inicializar_app.
 Y todo esto para que dentro de las configuraciones de app.run, el depurador esté activo. Las clases creadas llevarán configuraciones más tarde
 
 Para modificar el puerto o el host de nuestro server, se especifica cada uno de estos argumentos dentro del método app.run().
@@ -39,10 +38,12 @@ Se tiene que registrar un manejador de errores. dentro de inicializar_app se esp
 Como primer parámetro el error 404, y como segundo la función que creamos anteriormente.
 
 
+    Creación de boques Jinja:
+
 Dentro de templates se crea un archivo base.html, se le da la maqueta básica y se crea un bloque de titulo  jinja en la etiqueta del titulo y uno de body
 Esta plantilla base, nos servirá para el formulario de inicio de sesión como para toda la intranet, es decir, todos los procedimientos internos de la app.
-Se recomienda hacer bloques de importación de archivos css y js. Se  pueden crear bloques personalisados para poder importar estos archivos en las plantillas
-que los usen. Entonces se importan en el template correspondiente. Solo se definen los bloques.
+Se recomienda hacer bloques de importación de archivos css y js. Se  pueden crear bloques personalizados para poder importar estos archivos en las plantillas
+que los usen. Entonces se importan en el template correspondiente. Solo se definen los bloques en base.html.
 
 Se crea el archivo body.html dentro de templates, hereda de base y se crea un bloque body de jinja. Dentro se crea otro bloque containter
 
@@ -54,62 +55,58 @@ y como body.html hereda de base, el mensaje que viene desde index.html se adapta
 
     Integrando Bootstrap con CDN para la barra de navegación:
 
-Con todo esto configurado, en init.py la ruta raíz ya no retorna solo un string, sino un render_template
+Con todo esto configurado, en init.py la ruta raíz ya no retorna solo un string, sino un render_template.
 Para estilizar los archivos CSS se usará el framework Bootstrap.
 Se integra Bootstrap a través de CDN. Content Delivery Network (red de distribución de contenidos) o a través de la descarga e importación de los archivos
-que se quieran utilizar, los cuales van dentro de /static.
-Con CDN: En un navegador web se busca Bootstrap y se busca la versión 4.6 (porqué esa?, no sé). 
+que se quieran utilizar, los cuales van dentro de /static. Con CDN: En un navegador web se busca Bootstrap y se busca la versión 4.6 (porqué esa?, no sé). 
 Se copia el stylesheet que nos presenta la web y se pega en base.html después del título. Así se importa Bootstrap, pero se necesitan más importaciones ...
 Se necesitan algunos archivos JS para poder crear efectos y funcionalidades. Se usa jquery, librería de js que permite interactuar con el DOM (Document Object Model)
-de una forma más fácil. En la web, en el apartado de Separate vienen 3 scripts, los cuales se pegarán antes del bloque customJS de jinja
+de una forma más fácil. En la web, en el apartado de Separate vienen 3 etiqeutas scripts, los cuales se pegarán antes del bloque customJS de jinja
 Con esto se cambia los estilos de Bootstrap, gracias a las importaciones que hicimos.
 
 En body.html se crea una capa entre el bloque de body y el bloque container. Escribimos div.container y enter para que se cree la etiqueta automaticamente.
-Movemos el bloque container adentro del div que creamos. 
-Para mover el texto del mensaje Hola mundo, en los argumentos del div, se especifica py-5, esto significa que se quiere un padding verticar de X unidades
-El padding es un area de relleno en los lados que se le diga
+Movemos el bloque container adentro del div que creamos. Para mover el texto del mensaje Hola mundo, en los argumentos del div, se especifica py-5,
+esto significa que se quiere un padding verticar de X unidades. El padding es un area de relleno en los lados que se le diga
 
-Se crea nav.html, en la web de Bootstrap sacamos una barra de navegación, dentro de su barra de navegación, en Components
-se busca Navbar y se selecciona una, se copia se pega el contenido en nav. Se borran algunas etiquetas que no se usan, las li de nav-item,
-para no tener tantas opciones en la barra de navegación
-En body.html se agrega una etiqueta de jinja que es include 'archivo.html'. Como su nombre lo dice, se incluye el contenido de ese archivo
-Esta barra de navegación existirá en todo el sitio, excepto en el login.
-Cambiamos el nombre de la barra a Tienda, en la primer etiqueta li, cambiamos el nombre a Index y en el argumento de la etiqueta li, le quitamos
-la propiedad de active, y la etiqueta span y comentamos las otras etiquetas.
-En item Index, se tiene un atributo href, la cual hace referencia al mismo sitio mediante un numeral (#), en nuestra web, si se da click al boton index, no ocurre nada
 
-En index.html creamos un div con el nombre de row, es decir fila. Para poder contener más elemntos Dentro creamos otra etiqueta div con un texto que sirve
-para que, independientemente del tipo de pantalla, el contenido se muestre. Bootstrap usa un sistema de división de la pantalla en 12 espacios.
+    Creando la barra de navegación:
+
+Se crea nav.html, en la web de Bootstrap sacamos una barra de navegación, dentro de su barra de navegación, en Components se busca Navbar y se selecciona una,
+se copia se pega el contenido en nav. Se borran algunas etiquetas que no se usan, las <li> de nav-item, para no tener tantas opciones en la barra de navegación
+En body.html se agrega una etiqueta de jinja que es {include 'archivo.html'}. Como su nombre lo dice, se incluye el contenido de ese archivo
+Esta barra de navegación existirá en todo el sitio, excepto en el login.Cambiamos el nombre de la barra a "Tienda X", en la primer etiqueta li,
+cambiamos el nombre a Index y en el argumento de la etiqueta li, le quitamos la propiedad de active, y la etiqueta span y comentamos las otras etiquetas.
+En <item> Index, se tiene un atributo href, la cual hace referencia al mismo sitio mediante un numeral (#), en nuestra web, si se da click al boton index, no ocurre nada
+
+En index.html creamos un div con el nombre de row, es decir fila, para poder contener más elementos. Dentro creamos otra etiqueta div con un texto que sirve
+para que independientemente del tipo de pantalla, el contenido se muestre. Bootstrap usa un sistema de división de la pantalla en 12 espacios.
 Dentro de los cuales se puede asignar bloques de diferente tamaño, mientras no rebasen los 12. Bootstrap redimensionará la página dependiendo
-del dispositivo que la visite, esta característica se denomina RESPONSIVE y es una buena práctica
-Colocamos el mensaje del h1 dentro del div que se acaba de crear.
+del dispositivo que la visite, esta característica se denomina RESPONSIVE y es una buena práctica. Colocamos el mensaje del h1 dentro del div que se acaba de crear.
 Ahora, si hacemos pequeña la ventana del navegador, el contenido se moverá dependiendo del tamaño disponible!!!
 
 
     Bootstrap con la descarga e integración de la librería:
 
 Durante todo este proceso se usaron los CDN de Bootstrap, pues la otra forma de usar Bootstrap es teniendo las librería dentro de static.
-Creamos 4 carpetas img,css,js,lib de librerias. Importamos los archivos de Bootstrap y la imagen del curso.
-En una etiqueta link, en la referencia se usa la funcion url_for y se especifica donde se encuentra el archivo a importar, se empieza con el css de Bootstrap
+Creamos 4 carpetas img,css,js,lib de static. Importamos los archivos de Bootstrap y la imagen del curso.
+Dentro de base.html. En <link>, en href se usa la funcion url_for y se especifica donde se encuentra el archivo a importar, se empieza con el css de Bootstrap
 Posteriormente, donde se colocaban los script de popper, jquery y Bootstrap, se hace casi lo mismo, solo que en el href se especifica la ruta con una facilidad de jinja
-
 Para hacer aparecer la pequeña imagen (svg) que se previamente colocamos en la carpeta img.
-Importamos la imagen debajo de la etiqueta del titulo, colocamos una etiqueta link, pero en el atributo rel, no colocamos stylesheet, sino shortcut importaciones
+Importamos la imagen debajo de la etiqueta del titulo, colocamos una etiqueta link, pero en el atributo rel, no colocamos stylesheet, sino shortcut icon
 y en href lo mismo, apuntamos a la posición de la imagen.
 
 
     Para el formulario o login:
 
-En init creamos la ruta login, con su respectiva plantilla (login.html) en /templates/auth (de autenticacion)
-Para no tener que crear un formulario desde 0, sacamos uno de la web de Bootstrap (https://getbootstrap.com/docs/5.3/examples/)
-En login.html, hereda de base, y contiene un bloque de título y uno de cuerpo
+En init creamos la ruta login, con su respectiva plantilla (login.html) en /templates/auth (de autenticacion).Para no tener que crear un formulario desde 0,
+sacamos uno de la web de Bootstrap (https://getbootstrap.com/docs/5.3/examples/) En login.html, hereda de base, y contiene un bloque de título y uno de cuerpo
 Con f12 checamos el código del login de ejemplo, copiamos todo el contenido de la etiqueta main y se coloca en el bloque body
-Se agrega el atributo class a la etiqueta form y se especifica que es un form-singin.
-Se debe agregar un archivo css para que el estilo sea identico al ejemplo. Archivo que se encuentra en el código de la web.
-El contenido lo meteremos a un archivo static/css/login.css.
-En una buena práctica el nombrar los archivos css de la misma manera que la plantilla a la cual afectan
-Para incluir el estilo que acabamos de obtener, se había creado anteriormente un bloque en base.html para los CSS customizados,
-No se va a incluir el código en base, ya que afectaría a todas las rutas, entonces como login hereda de base, creamos el mismo bloque,
+Se agrega el atributo class a la <form> y se especifica que es un form-singin. En los input de los campos de texto agregamos (required autofocus),
+Para que sean campos obligatorios y autofocus para que no sea necesario dar click en la casilla. 
+Se debe agregar un archivo css para que el estilo sea identico al ejemplo. Archivo que se encuentra en el código de la web. 
+El contenido lo meteremos a un archivo static/css/login.css. En una buena práctica el nombrar los archivos css de la misma manera
+que la plantilla a la cual afectan. Para incluir el estilo que acabamos de obtener, se había creado anteriormente un bloque en base.html para los CSS
+customizados. No se va a incluir el código en base, ya que afectaría a todas las rutas, entonces como login hereda de base, creamos el mismo bloque,
 En una etiqueta link se especifica la ruta del archivo css. Jinja hará el resto
 
 Nota: Si algo no está bien escrito, como puede ser el nombre de un atributo de una etiqueta, si corre, pero puede que la vista no funcione como debería
@@ -122,9 +119,8 @@ Para centrar el logo, se hará con JS. Se crea un bloque jinja para JS en login 
 
 Se crea el archivo js. En login.js se usa la clase text-center para centrar todo el texto del cuerpo de la página
 Se crea una constante que albergará el cuerpo del html, a través de la función querySelector, se para como parámetro el nombre de la etiqueta a seleccionar.
-La constante bosy llama al método classList, el cual solo es de lectura, pero el método add, el cual estamos usando, agrega clases a las etiquetas html
-y en este caso agregamos text-center.
-Con esta dos lineas de cogigo lo que se está haciendo es algo como: <body class='text-center'>
+La constante body llama al método classList, el cual solo es de lectura, pero el método add, el cual estamos usando, agrega clases a las etiquetas html
+y en este caso agregamos text-center. Con esta dos lineas de cogigo lo que se está haciendo es algo como: <body class='text-center'>
 El documento JS necesita ser cargado ya cuando el resto de la página ya haya cargado, puesto que no tiene sentido centrar un texto que todavía no existe,
 así pues, metemos las 2 lineas en una función. Esta función es equivalente al document.ready de jquery. Cuando el documento esté listo, se realizan una serie
 de acciones
@@ -157,3 +153,42 @@ esto implica una falta de seguridad.
 Como una prueba de un usuario con permisos de administrador, se crea la condicional donde el usuario debe ser admin y password es 123456, entonces redireccionamos
 al usuario a la ruta index, con los metodos redirect y url_for. De esta manera se simula un inicio de sesión, ya recibiendo los datos que pasa el usuario
 
+
+    CSRF:
+
+Cross Site Request Forgery o Solicitud de Falsificación entre Sitios. Respecto a la seguridad de los formularios, el CSRF es un ataque, donde sitios ajenos al nuestro,
+realizan peticiones a través de un formulario y no podemos controlar que esas peticiones sean de nuestro mismo sitio. Para controlar esa vulnerabilidad, Flask tiene
+herramientas, para evitar que un sitio web ajeno realice peticiones en nuestro sitio web. Se necesita instalar Flask.WTF. Entonces, cada que te tengamos un formulario,
+generamos un token o llave específica que puede identificarnos a la hora de realizar peticiones a través de formularios, con esto sabremos que somos nosotros quienes
+hacen las solicitudes.
+
+Nos vamos a config.py y en la clase Config (anteriormente vacia), creamos un atributo secret_key con valor de una cadena de texto, quedebería ser una contraseña
+compleja. Con esta contraseña, la app podrá crear tokens para cada formulario y para cada petición que se esté realizando. En init tenemos que importar el modulo
+instalado y creamos una instancia del módulo. Dentro de inicializar_app utilizamos la variable para instanciar la aplicación. Con esto ya se tiene la protección
+de ataques CSRF. Por último, en login.html , al iniciar el formulario se crea un  <input> con el atributo hidden, de nombre csrf_token y el su valor será el que
+nos arroje el método de {{csrf_token()}}, al ejecutarse el servidor, este valor, será sustituido con un código o token creado para ése formulario y peticiones.
+
+
+    Validación con html:
+
+Comprobaremos que los datos ingresados en los inputs sean los correctos. Dentro de login, en los inputs de usuario y password, podemos indicar atributos como minlengt o maxlength, para el tamaño de el string ingresado. Con esto validamos por medio de html la información a recibir, por medio de los atributos html 
+
+
+    Introducción a Maria DB:
+
+Para la persistencia de datos usamos una base de datos para albergarlos, porque actualmente son volátiles. MariaDB es una rama de MySQL. Se instala a través de XAMPP (Apache,MariaDB,PHP,Perl).
+En la web se descarga e instala como un programa cualquiera. En la interfaz se pulsa start en las opciones de Apache y MySQL, posteriormente, en un navegador se ingresa a localhost y si todo está bien, se ingresa a una bienvenida de XAMPP, se ingresa a la pestaña phpMyAdmin, herramienta que nos permite trabajar con bases de datos MariaDB.
+
+    
+    Creación de una Base de Datos:
+
+Dentro de phpMyAdmin se de click en nueva, se le da un nombre y en la codificación de caractes se selecciona utf8_unicode_ci y se pulsa en crear. Nuestra base de datos tendrá 5 tablas. 1. Tipos de usuario (admin o cliente) 2. Tabla para albergar a los usuarios, con sus claves y el tipo de usuario. 3. Libros que están a disposición 4. Autores de los libros 5. Tabla de compras, enlazamos un libro con un usuario.
+
+Para la primer tabla de nombre tipousuario, solo lleva 2 columnas. Como siempre, la primer columna es el id que funciona como llave primaria. Entonces, se le da  el nombre de id, el tipo es tinyint y su longitud es de 1, como atributo es unsigned o sea, sin signo y se selecciona que es llave primaria.
+Continuar. Se selecciona la casilla de A_I, de autoincrementar. La siguiente columna es el nombre, varchar de longitud 15. En la sección de comentarios se da una pequeña descripción de qué es lo que alberga la tabla, en cotejamiento se vuelve a seleccionar utf8_unicode_ci y listo, se da en guardar.
+Y así con las siguientes tablas.
+
+El password no se guarda como un texto plano, sino como un código encriptado.
+La tabla de usuarios alberca una llave foranea, conectadose con la tabla tipo_usuario. El tipo de dato y el tamaño deben ser el mismo para que la llave primaria.
+Para la tabla libro, la primer columna no es un id, sino un isbn, termino para referirse a libros, además, hace referencia a la tabla de autores con una llave foranea.
+La tabla compra tiene un uuid, código único para identificar cada registro, como si fuese un código de barras, código aleatorio y único, permite identificar cada compra realizada.
