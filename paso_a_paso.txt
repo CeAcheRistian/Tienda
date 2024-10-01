@@ -208,4 +208,5 @@ En la tabla de tipo_usuario, en la opcion de insertar, podemos insertar datos ma
 
     Configuración entre Flask y MariaDB:
 
-Instalamos mysqlclient, flask-mysql y flask-mysqldb
+Nota: para instalar ir a https://pypi.org/project/mysqlclient/ E instalar para la versión de Python corresponde, la mia es sudo apt-get install python3.12-dev default-libmysqlclient-dev build-essential pkg-config 
+Instalamos mysqlclient, flask-mysql y flask-mysqldb. Ya instalado vamos a config.py para asignar a variables las configuraciones necesarias para poder conectarnos. Dentro de la clase DevelopmentConfig, agregamos el host de mysql el cual, en este momento es localhost, donde está corriendo la aplicación, también agregamos un usuario root, se llama así porque en el servidor de la base de datos, en la opcion Cuentas de usuarios, se llama de esa manera, y agregamos una contraseña tanto en phpMyAdmin como en la variable password.
