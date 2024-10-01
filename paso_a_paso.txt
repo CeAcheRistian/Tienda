@@ -184,6 +184,9 @@ En la web se descarga e instala como un programa cualquiera. En la interfaz se p
 
 Dentro de phpMyAdmin se de click en nueva, se le da un nombre y en la codificación de caractes se selecciona utf8_unicode_ci y se pulsa en crear. Nuestra base de datos tendrá 5 tablas. 1. Tipos de usuario (admin o cliente) 2. Tabla para albergar a los usuarios, con sus claves y el tipo de usuario. 3. Libros que están a disposición 4. Autores de los libros 5. Tabla de compras, enlazamos un libro con un usuario.
 
+
+    Creación de tablas:
+
 Para la primer tabla de nombre tipousuario, solo lleva 2 columnas. Como siempre, la primer columna es el id que funciona como llave primaria. Entonces, se le da  el nombre de id, el tipo es tinyint y su longitud es de 1, como atributo es unsigned o sea, sin signo y se selecciona que es llave primaria.
 Continuar. Se selecciona la casilla de A_I, de autoincrementar. La siguiente columna es el nombre, varchar de longitud 15. En la sección de comentarios se da una pequeña descripción de qué es lo que alberga la tabla, en cotejamiento se vuelve a seleccionar utf8_unicode_ci y listo, se da en guardar.
 Y así con las siguientes tablas.
@@ -192,3 +195,17 @@ El password no se guarda como un texto plano, sino como un código encriptado.
 La tabla de usuarios alberca una llave foranea, conectadose con la tabla tipo_usuario. El tipo de dato y el tamaño deben ser el mismo para que la llave primaria.
 Para la tabla libro, la primer columna no es un id, sino un isbn, termino para referirse a libros, además, hace referencia a la tabla de autores con una llave foranea.
 La tabla compra tiene un uuid, código único para identificar cada registro, como si fuese un código de barras, código aleatorio y único, permite identificar cada compra realizada.
+
+
+    Relacionando las tablas:
+
+Dentro de la base Tienda, en la opcion de Diseñador, podemos ver de manera más visual las tablas, ninguna de ellas se relaciona, para relacionarlas, en la opcion de SQL, podremos realizar consultas SQL. En la tabla de usuario, se tiene una referencia a la tabla de tipos de usuario, entonces, dentro del cuadro de texto de la opcion SQL (en la base) escribimos: \ALTER TABLE usuario\ Para señalar que la tabla se va a modificar, después: \ADD CONSTRAINT FK_usuario_tipousuario\ Para agregar una restricción entre la tabla donde ocurre la modificacion y la tabla que se referencia, y se inicia con FK por convencion de Foreign Key, después: \FOREIGN KEY (tipousuario_id) REFERENCES tipousuario (id);\ Se indica que es una restricción de una llave foranea (llave foranea de la tabla usuario) y que hace referencia a otra tabla (tipo de usuario) y dentro de esa tabla a una columna (su llave primaria). Con esto ya existe una relación entre las tablas de usuario y tipo de usuario. Pero para saber que todo está bien, dentro de las opciones de la tabla usuario, se visualiza una pequeña llave en la columna de la llave foranea, así como en la pestaña indices se observa la adición o de manera más visual en la opcion de Diseñador. Se hace lo mismo con la tabla libro y autor, y para la tabla compra, esta se relaciona con libro y usuario. El resultado final: (Tienda/imagenes/TiendaDB.png)
+
+
+    Insertando datos con phpMyAdmin:
+
+En la tabla de tipo_usuario, en la opcion de insertar, podemos insertar datos manualmente. Agregamos en la fila nombre y columna valor al Administrador  y en el siguiente registro al Cliente, quitando la casilla de Ignorar. Para visualizar que todo este vien, en la opcion de examinar se verán los registros. Para ingresar algunos autores, en los recursos del curso se encuentran algunas sentencias INSERT INTO, con información de autores, información que colocaremos en la ventana de SQL. Primero se ingresó algunos datos de autores, y no de libros o compras, porque las tablas de libro y compra dependen de autor. Para insertar datos para los libros igual están en los recursos del curso. Se puede visualizar el vínculo entre las tablas libro y autor por que existe un hipervinculo en cualquier numero que se pulse de la columna autor_id de la tabla libro, se redirecciona a una fila del autor seleccionado
+
+    Configuración entre Flask y MariaDB:
+
+Instalamos mysqlclient, flask-mysql y flask-mysqldb
