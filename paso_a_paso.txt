@@ -177,9 +177,11 @@ Comprobaremos que los datos ingresados en los inputs sean los correctos. Dentro 
     Introducción a Maria DB:
 
 Para la persistencia de datos usamos una base de datos para albergarlos, porque actualmente son volátiles. MariaDB es una rama de MySQL. Se instala a través de XAMPP (Apache,MariaDB,PHP,Perl).
-En la web se descarga e instala como un programa cualquiera. En la interfaz se pulsa start en las opciones de Apache y MySQL, posteriormente, en un navegador se ingresa a localhost y si todo está bien, se ingresa a una bienvenida de XAMPP, se ingresa a la pestaña phpMyAdmin, herramienta que nos permite trabajar con bases de datos MariaDB.
-
+En la web se descarga e instala como un programa cualquiera. En la interfaz se pulsa start en las opciones de Apache y MySQL, posteriormente, en un navegador se ingresa a localhost y si todo está bien, se ingresa a una bienvenida de XAMPP, se ingresa a la pestaña phpMyAdmin, herramienta que nos permite trabajar con bases de datos MariaDB. Para linux, se descarga e instala: https://phoenixnap.com/kb/how-to-install-xampp-on-ubuntu
+Para activar es : sudo /opt/lampp/./manager-linux-x64.run
+Si de problemas: https://stackoverflow.com/questions/16830891/mysql-is-not-starting-in-xampp-ubuntu
     
+
     Creación de una Base de Datos:
 
 Dentro de phpMyAdmin se de click en nueva, se le da un nombre y en la codificación de caractes se selecciona utf8_unicode_ci y se pulsa en crear. Nuestra base de datos tendrá 5 tablas. 1. Tipos de usuario (admin o cliente) 2. Tabla para albergar a los usuarios, con sus claves y el tipo de usuario. 3. Libros que están a disposición 4. Autores de los libros 5. Tabla de compras, enlazamos un libro con un usuario.
@@ -208,5 +210,13 @@ En la tabla de tipo_usuario, en la opcion de insertar, podemos insertar datos ma
 
     Configuración entre Flask y MariaDB:
 
-Nota: para instalar ir a https://pypi.org/project/mysqlclient/ E instalar para la versión de Python corresponde, la mia es sudo apt-get install python3.12-dev default-libmysqlclient-dev build-essential pkg-config 
-Instalamos mysqlclient, flask-mysql y flask-mysqldb. Ya instalado vamos a config.py para asignar a variables las configuraciones necesarias para poder conectarnos. Dentro de la clase DevelopmentConfig, agregamos el host de mysql el cual, en este momento es localhost, donde está corriendo la aplicación, también agregamos un usuario root, se llama así porque en el servidor de la base de datos, en la opcion Cuentas de usuarios, se llama de esa manera, y agregamos una contraseña tanto en phpMyAdmin como en la variable password.
+Nota: para instalar ir a https://pypi.org/project/mysqlclient/ e instalar para la versión de Python corresponde, la mia es sudo apt-get install python3.12-dev default-libmysqlclient-dev build-essential pkg-config 
+Instalamos mysqlclient, flask-mysql y flask-mysqldb. Ya instalado vamos a config.py para asignar a variables las configuraciones necesarias para poder conectarnos. Dentro de la clase DevelopmentConfig, agregamos el host de mysql el cual, en este momento es localhost, donde está corriendo la aplicación, también agregamos un usuario root, se llama así porque en el servidor de la base de datos, en la opcion Cuenta de usuarios, se llama de esa manera, y agregamos una contraseña (si se desea) tanto en phpMyAdmin como en la variable password. La 3er variable es  la Base de Datos, nombre que debe ser igual al puesto en phpMyAdmin.
+Nos vamos a init e importamos mysql, instanciamos la clase y le pasamos la aplicación en la que queremos que tenga efecto y que permita conectarse a un sistema gestor MariaDB. COn esta instancia db se harán las conecciones a los modelos, los cuales son clases que albergarán todas las operaciones necesarias en la base de datos.
+
+
+    Probando la conexión a la base:
+
+Creamos una ruta de prueba, solo para ver que la conexión sea exitosa. Esta ruta debería conectarse a la tabla libros de la base, la cual ya tiene varias inserciones de datos. Se usan excepciones por cualquier problema que haya, levantamos una excepcion para que no se cuelgue el servidor. Creamos un cursor y una sentencia sql para seleccionar todas las columnas de la tabla libro y que los ordene por la columna titulo de manera ascendente. Creamos un objeto que alberge la data, se usa fetchall() para convertir lo obtenido a un objeto iterable.
+
+Nota: Por si cae una exepcion especifica: https://es.stackoverflow.com/questions/206679/error-2002-hy000-cant-connect-to-local-mysql-server-through-socket-var-run 
