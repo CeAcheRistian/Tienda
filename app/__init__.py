@@ -8,16 +8,18 @@ csrf = CSRFProtect()
 
 db = MySQL(app)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/login',methods=['GET', 'POST'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        #print(request.method)
-        #print(request.form['usuario'])
-        #print(request.form['password'])
+        # print(request.method)
+        # print(request.form['usuario'])
+        # print(request.form['password'])
         if request.form['usuario'] == 'admin' and request.form['password'] == '123456':
             return redirect(url_for('index'))
         else:
@@ -25,17 +27,27 @@ def login():
     else:
         return render_template('auth/login.html')
 
+
 @app.route('/libros')
 def listar_libros():
     try:
-        cursor =  db.connection.cursor()
-        sql = "SELECT isbn, titulo, autor_id, anioedicion FROM libro ORDER BY titulo ASC"
+        cursor = db.connection.cursor()
+        #sql = "SELECT isbn, titulo, anioedicion, autor_id FROM libro ORDER BY titulo ASC" Consulta a una sola tabla
+
+        sql = "SELECT LIB.isbn, AUT.apellidos, AUT.nombres, LIB.titulo, LIB.anioedicion,  LIB.precio FROM libro LIB JOIN autor AUT ON LIB.autor_id = AUT.id ORDER BY AUT.apellidos ASC"
+
         cursor.execute(sql)
         data = cursor.fetchall()
-        print(data)
-        return "Si funcionó!!!"
+
+        data = {
+            'libros': data,
+        }
+
+        return render_template('listar_libros.html', data=data)
+
     except Exception as e:
         raise Exception(e)
+
 
 def pagina_no_encontrada(error):
     return render_template('errores/404.html'), 404

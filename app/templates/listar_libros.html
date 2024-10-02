@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+
+        {% for libro in data.libros %}
+        <tr>
+            <td> {{ libro[0] }} </td>
+            <td> {{ libro[1] }} </td>
+            <td> {{ libro[2] }} </td>
+            <td> {{ libro[3] }} </td>
+            <td> {{ libro[4] }} </td>
+            <td> {{ libro[5] }} </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
