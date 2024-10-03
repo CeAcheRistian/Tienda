@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf.csrf import CSRFProtect
 from flask_mysqldb import MySQL
 
+from .models.ModeloLibro import ModeloLibro
+
 app = Flask(__name__)
 
 csrf = CSRFProtect()
@@ -12,6 +14,7 @@ db = MySQL(app)
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -29,24 +32,18 @@ def login():
 
 
 @app.route('/libros')
-def listar_libros():
+def listado_libros():
     try:
-        cursor = db.connection.cursor()
-        #sql = "SELECT isbn, titulo, anioedicion, autor_id FROM libro ORDER BY titulo ASC" Consulta a una sola tabla
-
-        sql = "SELECT LIB.isbn, AUT.apellidos, AUT.nombres, LIB.titulo, LIB.anioedicion,  LIB.precio FROM libro LIB JOIN autor AUT ON LIB.autor_id = AUT.id ORDER BY AUT.apellidos ASC"
-
-        cursor.execute(sql)
-        data = cursor.fetchall()
+        libros = ModeloLibro.listar_libros(db)
 
         data = {
-            'libros': data,
+            'libros': libros
         }
 
-        return render_template('listar_libros.html', data=data)
+        return render_template('listado_libros.html', data=data)
 
     except Exception as e:
-        raise Exception(e)
+        print(e)
 
 
 def pagina_no_encontrada(error):
