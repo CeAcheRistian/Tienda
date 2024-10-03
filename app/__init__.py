@@ -35,7 +35,6 @@ def login():
 def listado_libros():
     try:
         libros = ModeloLibro.listar_libros(db)
-
         data = {
             'libros': libros
         }

@@ -7,15 +7,14 @@
 </head>
 <body>
     <table>
-
         {% for libro in data.libros %}
         <tr>
-            <td> {{ libro[0] }} </td>
-            <td> {{ libro[1] }} </td>
-            <td> {{ libro[2] }} </td>
-            <td> {{ libro[3] }} </td>
-            <td> {{ libro[4] }} </td>
-            <td> {{ libro[5] }} </td>
+            <td> {{ libro.isbn }} </td>
+            <td> {{ libro.titulo }} </td>
+            <td> {{ libro.anioedicion }} </td>
+            <td> {{ libro.autor.apellidos }} </td>
+            <td> {{ libro.autor.nombres }} </td>
+            <td> {{ libro.precio }} </td>
         </tr>
         {% endfor %}
     </table>
