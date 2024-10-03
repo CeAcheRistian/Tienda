@@ -44,6 +44,8 @@ def listado_libros():
     except Exception as e:
         print(e)
 
+    
+    
 
 def pagina_no_encontrada(error):
     return render_template('errores/404.html'), 404
