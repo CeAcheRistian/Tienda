@@ -3,6 +3,8 @@ from flask_wtf.csrf import CSRFProtect
 from flask_mysqldb import MySQL
 
 from .models.ModeloLibro import ModeloLibro
+from .models.ModeloUsuario import ModeloUsuario
+from models.entities.Usuario import Usuario
 
 app = Flask(__name__)
 
@@ -23,7 +25,9 @@ def login():
         # print(request.method)
         # print(request.form['usuario'])
         # print(request.form['password'])
-        if request.form['usuario'] == 'admin' and request.form['password'] == '123456':
+        usuario = Usuario(None, request.form['usuario'], request.form['password'], None)
+        logeado = ModeloUsuario(db,usuario)
+        if logeado:
             return redirect(url_for('index'))
         else:
             return render_template('auth/login.html')

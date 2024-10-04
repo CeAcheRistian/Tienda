@@ -239,3 +239,8 @@ Es una buena práctica crear modelos que se encargen de gestionar las entidades 
     Gestión y encriptación de contraseñas
 
 Para encriptar contraseñas usamos un móduflo de Flask de nombre werkzeug y su submódulo security para generar contraseñas y compararlas con un input. Momentaneamente importamos (en init) y creamos la ruta password, las importaciones correspondientes van en usuario.py. Creamos una instancia de la clase y se pasamos un texto, en esta variable ya se encuentra la contraseña encriptada, creamos una instancia pero ahora de check y como primer parámetro es la contraseña encriptada y como segundo el string que queremos verificar si es la misma. La clave generada es la que guardamos en la base. Pasamos todo a usuario.py
+
+
+    Inicio de sesion
+
+La comprobación de los usuarios y contraseñas deben ser comparados con la tabla de la base de datos. En ModeloUsuario.py se lleva a cabo la lógica de inicio de sesión. Se crea la conexión a la base y en la sentencia sql se selecciona de usuario los datos del usuario que mandó el cliente, si existe pasará información del usuario, sino la consulta dará error. de todos los campos seleccionados se selecciona un registro, esto con fetchone() porque solo debería haber 1 registro con el nombre del usuario. En init hacemos una instancia de la clase
