@@ -26,8 +26,8 @@ def login():
         # print(request.form['usuario'])
         # print(request.form['password'])
         usuario = Usuario(None, request.form['usuario'], request.form['password'], None)
-        logeado = ModeloUsuario(db,usuario)
-        if logeado:
+        usuario_logeado = ModeloUsuario(db,usuario)
+        if usuario_logeado != None:
             return redirect(url_for('index'))
         else:
             return render_template('auth/login.html')
@@ -42,7 +42,6 @@ def listado_libros():
         data = {
             'libros': libros
         }
-
         return render_template('listado_libros.html', data=data)
 
     except Exception as e:
