@@ -7,6 +7,7 @@ from .models.ModeloLibro import ModeloLibro
 from .models.ModeloUsuario import ModeloUsuario
 from .models.entities.Usuario import Usuario
 
+
 app = Flask(__name__)
 
 csrf = CSRFProtect()
@@ -16,6 +17,11 @@ db = MySQL(app)
 login_manager_app = LoginManager(app)
 
 
+@login_manager_app.user_loader
+def load_user(id):
+    return ModeloUsuario.obtener_por_id(db, id)
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -23,19 +29,19 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    
+
     if request.method == 'POST':
         usuario = Usuario(
             None, request.form['usuario'], request.form['password'], None)
-        usuario_logeado = ModeloUsuario(db, usuario)
-        
+        usuario_logeado = ModeloUsuario.login(db, usuario)
+
         if usuario_logeado != None:
             login_user(usuario_logeado)
             return redirect(url_for('index'))
-        
+
         else:
             return render_template('auth/login.html')
-    
+
     else:
         return render_template('auth/login.html')
 
