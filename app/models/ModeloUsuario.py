@@ -9,9 +9,11 @@ class ModeloUsuario:
     def login(self, db, usuario: Usuario):
         try:
             cursor = db.connection.cursor()
-            sql = f"SELECT id, usuario, password FROM usuario WHERE usuario = '{usuario.usuario}' "
+            sql = f"SELECT id, usuario, password FROM usuario WHERE usuario = '{
+                usuario.usuario}' "
             cursor.execute(sql)
             data = cursor.fetchone()
+
             if data != None:
                 coincide = check_password_hash(data[2], usuario.password)
                 if coincide:
@@ -21,6 +23,7 @@ class ModeloUsuario:
                     return None
             else:
                 return None
+
         except Exception as e:
             raise Exception(e)
 

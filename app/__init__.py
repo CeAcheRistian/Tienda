@@ -1,11 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_wtf.csrf import CSRFProtect
 from flask_mysqldb import MySQL
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user
 
 from .models.ModeloLibro import ModeloLibro
 from .models.ModeloUsuario import ModeloUsuario
 from .models.entities.Usuario import Usuario
+
+from .const import *
 
 
 app = Flask(__name__)
@@ -40,11 +42,18 @@ def login():
             return redirect(url_for('index'))
 
         else:
+            flash(LOGIN_CREDENCIALES_INVALIDAS)
             return render_template('auth/login.html')
 
     else:
         return render_template('auth/login.html')
 
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash(LOGOUT)
+    return redirect(url_for('login'))
 
 @app.route('/libros')
 def listado_libros():

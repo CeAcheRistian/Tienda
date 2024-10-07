@@ -16,17 +16,36 @@ Inicio de sesión
     <h1 class="h3 mb-3 fw-normal">Inicio de Sesi&oacute;n</h1>
 
     <div class="form-floating">
-        <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Usuario" minlength="5" maxlength="20" required autofocus>
-        <div style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;" data-lastpass-icon-root=""></div>
+        <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Usuario" minlength="5"
+            maxlength="20" required autofocus>
+        <div style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"
+            data-lastpass-icon-root=""></div>
         <label for="floatingInput">User</label>
     </div>
-    <br/>
+    <br />
     <div class="form-floating">
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password" minlength="6" maxlength="20" required>
-        <div style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;" data-lastpass-icon-root=""></div><label for="floatingPassword">Password</label>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" minlength="6"
+            maxlength="20" required>
+        <div style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"
+            data-lastpass-icon-root=""></div><label for="floatingPassword">Password</label>
     </div>
 
     <button class="btn btn-primary w-100 py-2" type="submit">Iniciar sesi&oacute;n</button>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <br />
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong style="font-size: 16px;"> {{ message }} </strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     <p class="mt-5 mb-3 text-body-secondary">© 2024</p>
 </form>
 
