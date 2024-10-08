@@ -1,6 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+
 class Usuario(UserMixin):
     def __init__(self, id, usuario, password, tipousuario) -> None:
         self.id = id
@@ -8,7 +9,6 @@ class Usuario(UserMixin):
         self.password = password
         self.tipousuario = tipousuario
 
-    def encriptar_password(password) -> bool:
-        encriptado = generate_password_hash(password)
-        comparacion = check_password_hash(encriptado, password)
-        return comparacion
+    @classmethod
+    def verificar_password(self, encriptado, password) -> bool:
+        return check_password_hash(encriptado, password)

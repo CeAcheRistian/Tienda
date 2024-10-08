@@ -272,4 +272,16 @@ Es posible hacer diferentes mensajes o diferentes propiedades a los mensajes, un
 
     Login requerido en URLs
 
-Algunas de nuestras subrutas van a requerir obligatoriamente que el usuario se loge. Para hacer esto, en las rutas que se desee tener un usuario logeado se utiliza el decorador login_required debjo del decorar de la ruta. Si intentamos ingresar a una url y no estamos logeados, lanzará un mensaje de no autorización con el error 401. Pero este mensaje es muy feo para presentar al usuario, lo manejaremos redirigiendo a login. Dentro de init creamos la función para el error y la agregamos a inicializar_app. Con esto ya se redijie al usuario a login
+Algunas de nuestras subrutas van a requerir obligatoriamente que el usuario se loge. Para hacer esto, en las rutas que se desee tener un usuario logeado se utiliza el decorador login_required debjo del decorar de la ruta. Si intentamos ingresar a una url y no estamos logeados, lanzará un mensaje de no autorización con el error 401. Pero este mensaje es muy feo para presentar al usuario, lo manejaremos redirigiendo a login. Dentro de init creamos la función para el error y la agregamos a inicializar_app. Con esto ya se redijie al usuario a login.
+
+
+    Obtener sesión actual 
+
+Mostraremos en la esquina superior los datos del usuario ya logeado. Cambiamos de lugar la tarea del check password de ModeloUsuario a un metodo de clase en Usuario.py.
+Dentro del template de nav creamos un span al finalizar el ul. span aplica estilo al texto o agrupa elementos en linea. y le pasamos el usuario actual, elemento que nos presta flask-login para hacer referencia al usuario actual, el current_user se relaciona con la función de user_loder, la cual nos retorna los datos del usuario buscando por su id. agregamos el tipo de usuario y con la etiqueta strong se muestra en negritas. Para que el texto se vea en la esquina derecha. Dentro de lal atributo de ul agregamos mr-auto para que se acomode el texto.
+Agregamos otro elemento a la barra de navegación que nos lleve al listado de libros y este listado solo se mostrara solo para los clientes. Los administradores no verán el elemento en la barra de navegación.
+
+
+    Operaciones para control de sesiones 
+
+a

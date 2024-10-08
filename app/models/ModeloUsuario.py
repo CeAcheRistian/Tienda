@@ -1,6 +1,5 @@
 from .entities.Usuario import Usuario
 from .entities.TipoUsuario import TipoUsuario
-from werkzeug.security import check_password_hash
 
 
 class ModeloUsuario:
@@ -15,7 +14,9 @@ class ModeloUsuario:
             data = cursor.fetchone()
 
             if data != None:
-                coincide = check_password_hash(data[2], usuario.password)
+                coincide = Usuario.verificar_password(
+                    data[2], usuario.password)
+
                 if coincide:
                     usuario_logeado = Usuario(data[0], data[1], None, None)
                     return usuario_logeado
