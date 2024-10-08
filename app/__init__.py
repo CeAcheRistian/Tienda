@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_wtf.csrf import CSRFProtect
 from flask_mysqldb import MySQL
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 from .models.ModeloLibro import ModeloLibro
 from .models.ModeloUsuario import ModeloUsuario
@@ -24,13 +24,7 @@ def load_user(id):
     return ModeloUsuario.obtener_por_id(db, id)
 
 
-@app.route('/')
-@login_required
-def index():
-    return render_template('index.html')
-
-
-@app.route('/login/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
     if request.method == 'POST':
@@ -51,7 +45,7 @@ def login():
         return render_template('auth/login.html')
 
 
-@app.route('/logout/')
+@app.route('/logout')
 @login_required
 def logout():
     logout_user()
@@ -59,7 +53,29 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/libros/')
+@app.route('/')
+@login_required
+def index():
+    if current_user.is_authenticated:
+        if current_user.tipousuario.id == 1:
+            libros_vendidos: list = []
+            data: dict = {
+                'titulo': 'Libros vendidos',
+                'libros_vendidos': libros_vendidos
+            }
+
+        else:
+            compras: list = []
+            data: dict = {
+                'titulo': 'Mis compras',
+                'compras': compras
+            }
+        return render_template('index.html', data=data)
+    else:
+        redirect(url_for('login'))
+
+
+@app.route('/libros')
 @login_required
 def listado_libros():
     try:

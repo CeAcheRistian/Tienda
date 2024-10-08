@@ -282,6 +282,7 @@ Dentro del template de nav creamos un span al finalizar el ul. span aplica estil
 Agregamos otro elemento a la barra de navegación que nos lleve al listado de libros y este listado solo se mostrara solo para los clientes. Los administradores no verán el elemento en la barra de navegación.
 
 
-    Operaciones para control de sesiones 
+    Operaciones para control de sesiones
 
-a
+Dentro de la ruta raiz preguntamos si el usuario ya está autenticado, si es así, pasamos la platilla index, sino redireccionamos a login.
+Los administrador podrán ver cuantos libros se han vendido, mientras que los clientes ven los libros que ya compraron. Esto se implementa en la ruta raiz. DEntro del template index creamos otra secci para mostar los libros o compras, en este momento solo mostramos el titulo de la lista. Los datos a mostrar vendrán de la lista del diccionario que a su vez sacan los datos de la base, esto es así para el dinamismo de la data. En el template de index tenemos la maqueta de las ventas o compras de los libros, vacia por el momento.

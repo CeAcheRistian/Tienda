@@ -24,4 +24,31 @@ Index
     </div>
 </div>
 
+<hr/>
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+        <h2> {{ data.titulo }} </h2>
+    </div>
+    {% if current_user.tipousuario.id == 1 %}
+    {% if data.libros_vendidos|length > 0 %}
+
+    {% else %}
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+        <h2> Sin ventas :c </h2>
+    </div>
+
+    {% endif %}1
+    {% else %}
+    {% if data.compras|length > 0 %}
+
+    {% else %}
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+        <h2> No has comprado libros </h2>
+    </div>
+
+    {% endif %}
+    {% endif %}
+
+</div>
 {% endblock %}
