@@ -263,3 +263,13 @@ Creamos una ruta logout, dentro llamamos al método logout, el cual viene con fl
 
 Si el usuario teclea mal su usuario o contraseña no hay un mensaje que se lo indique con el modulo flash de Flask podemos implementar esos mensajes entre distintas vistas para poder indicar datos que sean de utilidad para que el usuario pueda leer. Dentro de la ruta login, antes de redireccionar porque las credenciales no son validas, mandamos el mensaje flash, pero falta especificar donde mostrarlo, entonces vamos al template login, debajo del botón de iniciar sesión obtenemos los mensajes mandados por la función y los guardamos en una variable, realizamos una comprobación si hay mensajes y los iteramos para mostrarlos en pantalla. Para mejorar como se presenta el mensaje se usa un mensaje alerta de Bootstrap. Dentro de la etiqueta strong, modificamos el tamaño del texto a mostrar y entre las etiquetas mostramos el mensaje.
 Cuando pulsamos para cerrar sesión, debería haber un mensaje que diga que cerramos sesión. Entonces hacemos lo mismo pero ahora en logout. Estos mensajes flash son constantes que van a ir en un archivo de variables constantes, lo importamos y sustituimos estas constantes dentro del mensaje flash.
+
+
+    Categorías de mensajes flashed
+
+Es posible hacer diferentes mensajes o diferentes propiedades a los mensajes, un mensaje de aviso es diferente a un mensaje de error. En los mensajes flash, le pasamos como segundo argumento la categoría del mensaje. Esto también debe ser cachado en el template, especificamente en la llamada de obtener lops mensajes, como parámetro le eindicamos que si vienen con categoria, también lo iteramos y lo seccionamos, dependiendo del tipo de categoria que tenga cada mensaje, para darle una vista diferente.Creamos un mensaje flash para la bienvenida de la página, todo lo anterior pero ahora en index, este mensaje aparece solo cuando se es redireccionado de login a index.
+
+
+    Login requerido en URLs
+
+Algunas de nuestras subrutas van a requerir obligatoriamente que el usuario se loge. Para hacer esto, en las rutas que se desee tener un usuario logeado se utiliza el decorador login_required debjo del decorar de la ruta. Si intentamos ingresar a una url y no estamos logeados, lanzará un mensaje de no autorización con el error 401. Pero este mensaje es muy feo para presentar al usuario, lo manejaremos redirigiendo a login. Dentro de init creamos la función para el error y la agregamos a inicializar_app. Con esto ya se redijie al usuario a login

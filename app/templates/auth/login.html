@@ -32,16 +32,26 @@ Inicio de sesión
 
     <button class="btn btn-primary w-100 py-2" type="submit">Iniciar sesi&oacute;n</button>
 
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories = True) %}
     {% if messages %}
     <br />
-    {% for message in messages %}
+    {% for category, message in messages %}
+    {% if category == 'warning'%}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong style="font-size: 16px;"> {{ message }} </strong>
+        <strong style="font-size: 14px;"> {{ message }} </strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    {% endif %}
+    {% if category == 'success'%}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong style="font-size: 14px;"> {{ message }} </strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
     {% endfor %}
     {% endif %}
     {% endwith %}

@@ -7,7 +7,20 @@ Index
 {% block container %}
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <h1> Hola Mundo </h1>
+        <h1> Librería "Tazo Dorado" </h1>
+        {% with messages = get_flashed_messages(with_categories = True) %}
+        {% if messages %}
+        <br />
+        {% for category, message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong style="font-size: 18px;"> {{ message }} </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
     </div>
 </div>
 
