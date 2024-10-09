@@ -292,3 +292,8 @@ Los administrador podrán ver cuantos libros se han vendido, mientras que los cl
 
 Se va a mejorar la vista del listado de libros. Procedemos a borrar todo lo que haya en listado_libros, que solo era la iteración de un diccionario que contenia los datos de los libros. Reutilizamos bastante código de index.html. Para mostrar los datos y portadas de los libros usamos tarjetas de Bootstrap.
 Para las imagenes, el curso nos regala las portadas en formato jpg, en el titulo de la imagen es su isbn para parearlas con la base de datos. Para hacer esto dentro del atributo src, en su segundo parámetro filename, donde se especifica la ruta de la imagen, incrustamos la variable que creamos con jinja2 con la palabra reservada set.
+
+
+    Manejo de errores
+
+Lo ideal es tener una página de errores que el usuario entienda que hubo un error, entonces, en vez de imprimir una excepcion retornamos un template con la excepcion como mensaje, todo esto en listado_libros. En error.html mandamos el error

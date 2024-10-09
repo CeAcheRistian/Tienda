@@ -79,17 +79,15 @@ def index():
 @login_required
 def listado_libros():
     try:
-        print('1')
         libros: list = ModeloLibro.listar_libros(db)
         data: dict = {
             'titulo': 'Listado de libros',
             'libros': libros,
         }
-        print('2')
         return render_template('listado_libros.html', data=data)
 
     except Exception as e:
-        print(e)
+        return render_template('errores/error.html', mensaje=format(e))
 
 
 def pagina_no_encontrada(error):
