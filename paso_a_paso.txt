@@ -286,3 +286,9 @@ Agregamos otro elemento a la barra de navegación que nos lleve al listado de li
 
 Dentro de la ruta raiz preguntamos si el usuario ya está autenticado, si es así, pasamos la platilla index, sino redireccionamos a login.
 Los administrador podrán ver cuantos libros se han vendido, mientras que los clientes ven los libros que ya compraron. Esto se implementa en la ruta raiz. DEntro del template index creamos otra secci para mostar los libros o compras, en este momento solo mostramos el titulo de la lista. Los datos a mostrar vendrán de la lista del diccionario que a su vez sacan los datos de la base, esto es así para el dinamismo de la data. En el template de index tenemos la maqueta de las ventas o compras de los libros, vacia por el momento.
+
+
+    Listado de libros disponibles 
+
+Se va a mejorar la vista del listado de libros. Procedemos a borrar todo lo que haya en listado_libros, que solo era la iteración de un diccionario que contenia los datos de los libros. Reutilizamos bastante código de index.html. Para mostrar los datos y portadas de los libros usamos tarjetas de Bootstrap.
+Para las imagenes, el curso nos regala las portadas en formato jpg, en el titulo de la imagen es su isbn para parearlas con la base de datos. Para hacer esto dentro del atributo src, en su segundo parámetro filename, donde se especifica la ruta de la imagen, incrustamos la variable que creamos con jinja2 con la palabra reservada set.
