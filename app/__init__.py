@@ -5,7 +5,10 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 
 from .models.ModeloLibro import ModeloLibro
 from .models.ModeloUsuario import ModeloUsuario
+from .models.ModeloCompra import ModeloCompra
 from .models.entities.Usuario import Usuario
+from .models.entities.Libro import Libro
+from .models.entities.Compra import Compra
 
 from .const import *
 
@@ -97,10 +100,13 @@ def comprar_libro():
     print(data_request)
     data = {}
     try:
-        data['exito'] = True
+        libro = Libro(data_request['isbn'], None, None, None, None)
+        compra = Compra(None, libro, current_user)
+
+        data['exito'] = ModeloCompra.registrar_compra(db, compra)
     except Exception as e:
         data['exito'] = False
-        data['mensaje'] = f'e'
+        data['mensaje'] = f'{e}'
     return jsonify(data)
 
 def pagina_no_encontrada(error):
