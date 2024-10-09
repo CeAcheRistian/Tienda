@@ -20,10 +20,15 @@
             <div class="card-body">
                 <h5 class="card-title">{{ libro.titulo }}</h5>
                 <p class="card-text">{{ libro.autor.nombre_completo() }}</p>
-                <button class="btn btn-block btn-primary">Comprar</button>
+                <button id=" {{ libro.isbn }}" class="btn btn-block btn-primary btnComprarLibro">Comprar</button>
             </div>
         </div>
     </div>
     {% endfor %}
+    <input type="hidden" name="csrf-token" value ="{{ csrf_token() }}">
 </div>
+{% endblock %}
+
+{% block customJS %}
+<script src="{{ url_for('static', filename='js/listado_libros.js')}}"></script>
 {% endblock %}
