@@ -30,5 +30,7 @@
 {% endblock %}
 
 {% block customJS %}
+<script src="{{ url_for('static', filename='lib/sweetalert2-9.10.0/sweetalert2.all.min.js')}}"></script>
 <script src="{{ url_for('static', filename='js/listado_libros.js')}}"></script>
+<script src="{{ url_for('static', filename='js/notificacionSwal.js')}}"></script>
 {% endblock %}
