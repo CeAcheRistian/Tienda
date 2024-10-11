@@ -61,19 +61,26 @@ def logout():
 def index():
     if current_user.is_authenticated:
         if current_user.tipousuario.id == 1:
-            libros_vendidos: list = []
-            data: dict = {
-                'titulo': 'Libros vendidos',
-                'libros_vendidos': libros_vendidos
-            }
-
+            try:
+                libros_vendidos: list = ModeloLibro.listar_libros_vendidos(db)
+                data: dict = {
+                    'titulo': 'Libros vendidos',
+                    'libros_vendidos': libros_vendidos
+                }
+                return render_template('index.html', data=data)
+            except Exception as e:
+                return render_template('errores/error.html', mensaje=format(e))
         else:
-            compras: list = []
-            data: dict = {
-                'titulo': 'Mis compras',
-                'compras': compras
-            }
-        return render_template('index.html', data=data)
+            try:
+                compras: list = ModeloCompra.listar_compras_usuario(
+                    db, current_user)
+                data: dict = {
+                    'titulo': 'Mis compras',
+                    'compras': compras
+                }
+                return render_template('index.html', data=data)
+            except Exception as e:
+                return render_template('errores/error.html', mensaje=format(e))
     else:
         redirect(url_for('login'))
 
@@ -93,7 +100,7 @@ def listado_libros():
         return render_template('errores/error.html', mensaje=format(e))
 
 
-@app.route('/compralibro', methods=['POST'])
+@app.route('/comprarlibro', methods=['POST'])
 @login_required
 def comprar_libro():
     data_request = request.get_json()
@@ -108,6 +115,7 @@ def comprar_libro():
         data['exito'] = False
         data['mensaje'] = f'{e}'
     return jsonify(data)
+
 
 def pagina_no_encontrada(error):
     return render_template('errores/404.html'), 404

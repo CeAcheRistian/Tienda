@@ -1,8 +1,8 @@
 const notificacionSwal = (titleText, text, icon, confirmButtonText) => {
-    notificacionSwal.fire({
+    Swal.fire({
         titleText: titleText,
         text: text,
         icon: icon,
         confirmButtonText: confirmButtonText
-    })
+    });
 }

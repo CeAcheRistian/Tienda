@@ -21,8 +21,7 @@
             confirmButtonText: 'Comprar',
             showLoaderOnConfirm: true,
             preConfirm: async () => {
-
-                return await fetch('http://127.0.0.1:5000/compralibro', {
+                return await fetch(`${window.origin}/comprarlibro`, {
                     method: 'POST',
                     mode: 'same-origin',
                     credentials: 'same-origin',
@@ -39,7 +38,11 @@
                     }
                     return response.json();
                 }).then(data => {
-                    notificacionSwal('¡Felicidades!', 'Libro Comprado', 'success', 'Ok');
+                    if (data.exito) {
+                        notificacionSwal('¡Felicidades!', 'Libro Comprado', 'success', 'Ok');
+                    } else {
+                        notificacionSwal('¡Alerta!', data.mensaje, 'warning', 'Ok');
+                    }
                 }).catch(error => {
                     notificacionSwal('Error', error, 'error', 'Cerrar');
                 });
@@ -47,6 +50,5 @@
             allowOutsideClick: () => false,
             allowEscapeKey: () => false
         });
-
-    }
+    };
 })();
