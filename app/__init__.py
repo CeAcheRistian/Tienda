@@ -114,7 +114,7 @@ def comprar_libro():
         compra = Compra(None, libro, current_user)
 
         data['exito'] = ModeloCompra.registrar_compra(db, compra)
-        confirmacion_compra(mail, current_user, libro)
+        confirmacion_compra(app, mail, current_user, libro)
     except Exception as e:
         data['exito'] = False
         data['mensaje'] = f'{e}'

@@ -344,4 +344,7 @@ Dentro de app creamos email.py, dentro una funcion que recibe un mail, un usuari
 
     Envío asíncrono de correos 
 
-a
+Se modifica la función de confirmación de correos para hacerla asíncrona, ya que tarda unos segundos en llegar la notificación de éxito. Así pues, instanciamos la clase thread, pasandole como target la funcion por crear, en la funcion del envio asíncrono le pasamos la aplicación para entrar en el contexto, el mail y le mensaje. Tal cual es el envío del correo pero ahora, de manera asincrona. LA funcion crreada se la pasamos como target y especficamos los argumentos, iniciarmos el hilo. Solo faltó modificar los parámatros de confirmacioncompra agregando la app.
+
+
+Con esto se concluye la página web que simula una librería. :D
